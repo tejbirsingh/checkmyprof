@@ -1,0 +1,24 @@
+{
+  "name": "Rate my UBC",
+  "short_name": "Rate my UBC",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "description": "View RateMyProfessor ratings of the instructor in the UBC course selection page",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://courses.students.ubc.ca/cs/main?pname=subjarea&tname=subjareas*"
+      ],
+      "css": ["bootstrap.min.css"],
+      "js": [
+        "js/jquery.min.js",
+        "js/bootstrap.min.js",
+        "js/background.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "permissions": [
+    "https://courses.students.ubc.ca/cs/main?pname=subjarea&tname=subjareas*"
+  ]
+}
