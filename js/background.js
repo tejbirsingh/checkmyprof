@@ -1,11 +1,15 @@
-/**
- * Created by tejbirsingh on 15-03-27.
- */
 debugger;
 var rateDiv, target, professorName;
 
 target = $x('/html/body/div[2]/div[4]/table[3]/tbody/tr/td[2]/a');
+var profNames = [];
+target.forEach(function(profElement){
+  profNames.push(profElement.innerText);
+})
 
+profRatings(profNames);
+
+//find by xpath
 function $x(path) {
   var result = document.evaluate(path, document, null, XPathResult.ANY_TYPE, null);
   var xnodes = [];
@@ -15,4 +19,11 @@ function $x(path) {
   }
 
   return xnodes;
+}
+
+function profRatings(profNames){
+
+  chrome.runtime.sendMessage({profNames: profNames}, function(response) {
+    console.log(response);
+  });
 }

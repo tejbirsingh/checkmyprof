@@ -4,6 +4,10 @@
   "version": "1.0.0",
   "manifest_version": 2,
   "description": "View RateMyProfessor ratings of the instructor in the UBC course selection page",
+  "background": {
+    "scripts": ["js/eventPage.js"],
+    "persistent": false
+  },
   "content_scripts": [
     {
       "matches": [
@@ -19,6 +23,7 @@
     }
   ],
   "permissions": [
-    "https://courses.students.ubc.ca/cs/main?pname=subjarea&tname=subjareas*"
+    "https://courses.students.ubc.ca/cs/main?pname=subjarea&tname=subjareas*",
+    "http://www.ratemyprofessors.com/*"
   ]
 }
