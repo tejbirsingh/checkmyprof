@@ -1,4 +1,13 @@
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    sendResponse(request);
+    var http = new XMLHttpRequest();
+
+    http.open('GET', request.url, true);
+    http.send();
+
+    http.onload = function(){
+      sendResponse(http.responseText);
+    };
+
+    return true; // prevents the callback from being called too early on return
   });
