@@ -6,7 +6,7 @@ chrome.runtime.onMessage.addListener(
     http.send();
 
     http.onload = function(){
-      sendResponse(http.responseText);
+      sendResponse({prof: request.prof, result: http.responseText});
     };
 
     return true; // prevents the callback from being called too early on return
