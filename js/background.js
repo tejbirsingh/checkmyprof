@@ -1,6 +1,6 @@
 debugger;
 var target,
-  professors = [];
+  instructors = [];
 
 target = $x('/html/body/div[2]/div[4]/table[3]/tbody/tr/td[2]/a');
 target.forEach(function(profElement, index){
@@ -14,10 +14,10 @@ target.forEach(function(profElement, index){
     targetNum: index
   };
 
-  professors.push(prof);
+  instructors.push(prof);
 })
 
-profRatings(professors);
+profRatings(instructors);
 
 //find by xpath
 function $x(path) {
@@ -67,26 +67,34 @@ function profRatings(professors){
 
       var link = $(profResult).find('a').attr('href');
       var profPage = professorUrl (link);
+      response.prof.url = profPage;
       console.log(profPage);
 
-      //chrome.runtime.sendMessage({url: profPage}, function (response) {
-      //  var temp = document.createElement('div');
-      //  temp.innerHTML = response;
-      //  var headings = $(temp).find(".breakdown-header");
-      //  var profQuality = '0.0'
-      //  for(var i = 0; i < headings.length; i++) {
-      //    if(headings[i].innerText.indexOf('Overall Quality') > -1) {
-      //      profQuality = $(headings[i]).find('.grade')[0].innerText;
-      //    }
-      //  }
-      //  var proffer = {
-      //    quality: profQuality,
-      //    name: $(temp).find('.result-name')[0].innerText
-      //
-      //  }
-      //  console.log(proffer);
-      //});
+      chrome.runtime.sendMessage({url: profPage, prof: response.prof}, function (response){
 
+        var profName, numRatings, quality, grade, helpfulness, clarity, easiness;
+
+        var temp = document.createElement('div');
+        temp.innerHTML = response.result;
+
+        var profFirst = $(temp).find('.pfname')[0].innerText.trim();
+        var profLast = $(temp).find('.plname')[0].innerText.trim();
+        profName = profFirst + ' ' + profLast;
+
+        numRatings = $(temp).find('.rating-count')[0].innerText.trim();
+
+        //var info = $(temp).find('.left-breakdown');
+        var overallAndAverage = $(temp).find('.left-breakdown .grade');
+        var otherRatings = $(temp).find('.left-breakdown .rating');
+        temp.remove();
+
+        quality = overallAndAverage[0].innerText;
+        grade = overallAndAverage[1].innerText;
+        helpfulness = otherRatings[0].innerText;
+        clarity = otherRatings[1].innerText;
+        easiness = otherRatings[2].innerText;
+
+      });
     });
   }
 }
