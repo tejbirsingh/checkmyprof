@@ -47,30 +47,11 @@ function profRatings(professors){
       response.prof.url = profPageUrl(profResult);
 
       chrome.runtime.sendMessage({url: response.prof.url, prof: response.prof}, function (response){
-
-        var profName, numRatings, quality, grade, helpfulness, clarity, easiness;
-
-        var temp = document.createElement('div');
-        temp.innerHTML = response.result;
-
-        var profFirst = $(temp).find('.pfname')[0].innerText.trim();
-        var profLast = $(temp).find('.plname')[0].innerText.trim();
-        profName = profFirst + ' ' + profLast;
-
-        numRatings = $(temp).find('.rating-count')[0].innerText.trim();
-
-        var overallAndAverage = $(temp).find('.left-breakdown .grade');
-        var otherRatings = $(temp).find('.left-breakdown .rating');
-        temp.remove();
-
-        quality = overallAndAverage[0].innerText;
-        grade = overallAndAverage[1].innerText;
-        helpfulness = otherRatings[0].innerText;
-        clarity = otherRatings[1].innerText;
-        easiness = otherRatings[2].innerText;
+        
+        var profRatings = professorRatings(response.result);
 
         var targetLink = $(target[response.prof.targetNum]).attr('href');
-        var profDiv = '<a id="' + profLast + response.prof.targetNum + '" href="' + targetLink + '" target="_blank" data-toggle="popover">' +
+        var profDiv = '<a id="' + profRatings.profName.last + response.prof.targetNum + '" href="' + targetLink + '" target="_blank" data-toggle="popover">' +
           target[response.prof.targetNum].innerText + '</a>';
 
         target[response.prof.targetNum].outerHTML = profDiv;
@@ -78,7 +59,7 @@ function profRatings(professors){
 
         var nDiv = document.createElement('div');
         nDiv.className = 'ratingList';
-        nDiv.innerHTML = '<a href="' + response.prof.url + '" target="_blank">' + numRatings + '</a>';
+        nDiv.innerHTML = '<a href="' + response.prof.url + '" target="_blank">' + profRatings.numRatings + '</a>';
         var qDiv = document.createElement('div');
         var gDiv = document.createElement('div');
         var hDiv = document.createElement('div');
@@ -112,15 +93,15 @@ function profRatings(professors){
         eValue.className = 'value';
 
         qTitle.innerText = 'Overall Quality';
-        qValue.innerText = quality;
+        qValue.innerText = profRatings.quality;
         gTitle.innerText = 'Average Grade';
-        gValue.innerText = grade;
+        gValue.innerText = profRatings.grade;
         hTitle.innerText = 'Helpfulness';
-        hValue.innerText = helpfulness;
+        hValue.innerText = profRatings.helpfulness;
         cTitle.innerText = 'Clarity';
-        cValue.innerText = clarity;
+        cValue.innerText = profRatings.clarity;
         eTitle.innerText = 'Easiness';
-        eValue.innerText = easiness;
+        eValue.innerText = profRatings.easiness;
 
 
         qTitle.appendChild(qValue);
@@ -143,13 +124,13 @@ function profRatings(professors){
         popoverElement.appendChild(nDiv);
 
 
-        $('#' + profLast + response.prof.targetNum).each(function () {
+        $('#' + profRatings.profName.last + response.prof.targetNum).each(function () {
           var $elem = $(this);
           $elem.popover({
             trigger: 'hover',
             html: true,
             container: $elem,
-            title: profName,
+            title: profRatings.profName.first + ' ' + profRatings.profName.last,
             content: popoverElement,
             template: '<div class="popover size" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
           });
