@@ -14,6 +14,24 @@ target.forEach(function(profElement, index){
     targetNum: index
   };
 
+  var targetLink = $(target[prof.targetNum]).attr('href');
+  var profDiv = '<a id="' + prof.lastName + prof.targetNum + '" href="' + targetLink + '" target="_blank" data-toggle="popover">' +
+    target[prof.targetNum].innerText + '</a>';
+
+  target[prof.targetNum].outerHTML = profDiv;
+
+  $('#' + prof.lastName + prof.targetNum).each(function () {
+    var $elem = $(this);
+    $elem.popover({
+      trigger: 'hover',
+      html: true,
+      container: $elem,
+      title: prof.firstName + ' ' + prof.lastName,
+      content: popoverTextContentDiv('Loading...'),
+      template: '<div class="popover size" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
+    });
+  });
+
   instructors.push(prof);
 })
 
@@ -41,8 +59,13 @@ function profRatings(professors){
 
       var profResult = getProfResultFromSearch (response.result, response.prof);
 
-      if(!profResult)
+      if(!profResult) {
+        $('#' + response.prof.lastName + response.prof.targetNum).each(function () {
+          var $elem = $(this);
+          $elem.data('bs.popover').options.content = popoverTextContentDiv('Professor Not Found');
+        });
         return;
+      }
 
       response.prof.url = profPageUrl(profResult);
 
@@ -50,24 +73,11 @@ function profRatings(professors){
 
         var profRatings = professorRatings(response.result);
 
-        var targetLink = $(target[response.prof.targetNum]).attr('href');
-        var profDiv = '<a id="' + profRatings.profName.last + response.prof.targetNum + '" href="' + targetLink + '" target="_blank" data-toggle="popover">' +
-          target[response.prof.targetNum].innerText + '</a>';
-
-        target[response.prof.targetNum].outerHTML = profDiv;
-
         var popoverElement = makeRatingsPopover(profRatings, response.prof.url);
 
-        $('#' + profRatings.profName.last + response.prof.targetNum).each(function () {
+        $('#' + profRatings.profName.last.toLowerCase() + response.prof.targetNum).each(function () {
           var $elem = $(this);
-          $elem.popover({
-            trigger: 'hover',
-            html: true,
-            container: $elem,
-            title: profRatings.profName.first + ' ' + profRatings.profName.last,
-            content: popoverElement,
-            template: '<div class="popover size" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
-          });
+          $elem.data('bs.popover').options.content = popoverElement;
         });
 
       });

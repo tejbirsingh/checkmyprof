@@ -18,8 +18,8 @@
       "js": [
         "js/jquery.min.js",
         "js/bootstrap.min.js",
-        "js/background.js",
-        "js/helpers.js"
+        "js/helpers.js",
+        "js/background.js"
       ],
       "run_at": "document_idle"
     }

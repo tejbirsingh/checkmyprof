@@ -65,7 +65,7 @@ function professorRatings(profPage) {
 function makeRatingsPopover(profRatings, rateMyProfUrl) {
 
   var numRatingsDiv = document.createElement('div');
-  numRatingsDiv.className = 'numRatings';
+  numRatingsDiv.className = 'num-ratings';
   numRatingsDiv.innerHTML = '<a href="' + rateMyProfUrl + '" target="_blank">' + profRatings.numRatings + '</a>';
 
   var qDiv = individualRatingDiv('grade', 'Overall Quality', profRatings.quality);
@@ -103,4 +103,12 @@ function individualRatingDiv(mainClass, title, value){
   parentDiv.appendChild(titleDiv);
 
   return parentDiv;
+}
+
+function popoverTextContentDiv(text){
+  var div = document.createElement('div');
+  div.className = 'popover-plain-text';
+  div.innerText = text;
+
+  return div;
 }
