@@ -41,6 +41,7 @@ function profRatings(professors){
       var temp = document.createElement('div');
       temp.innerHTML = response.result;
       var searchResults = $(temp).find('.PROFESSOR');
+      temp.remove();
 
       var profResult;
 
@@ -72,7 +73,8 @@ function profRatings(professors){
 
       chrome.runtime.sendMessage({url: profPage, prof: response.prof}, function (response){
 
-        var profName, numRatings, quality, grade, helpfulness, clarity, easiness;
+        var profName, numRatings, quality, grade, helpfulness, clarity, easiness,
+          pElement, nElement, qElement, gElement, hElement, cElement, eElement;
 
         var temp = document.createElement('div');
         temp.innerHTML = response.result;
@@ -93,6 +95,35 @@ function profRatings(professors){
         helpfulness = otherRatings[0].innerText;
         clarity = otherRatings[1].innerText;
         easiness = otherRatings[2].innerText;
+
+        var targetLink = $(target[response.prof.targetNum]).attr('href');
+        var profDiv = '<a id="' + profLast + response.prof.targetNum + '" href="' + targetLink + '" data-toggle="popover">' +
+          target[response.prof.targetNum].innerText + '</a>';
+
+        target[response.prof.targetNum].outerHTML = profDiv;
+
+        qElement = 'Overall Quality: ' + quality + '\n';
+        gElement = 'Average Grade: ' + grade + '\n';
+        hElement = 'Helpfulness: ' + helpfulness + '\n';
+        cElement = 'Clarity: ' + clarity + '\n';
+        eElement = 'Easiness: ' + easiness + '\n';
+
+
+        var popoverElement;
+
+
+        $('#' + profLast + response.prof.targetNum).each(function () {
+          var $elem = $(this);
+          $elem.popover({
+            trigger: 'hover',
+            html: true,
+            container: $elem,
+            title: profName,
+            content: qElement + gElement + hElement + cElement + eElement
+          });
+        });
+
+
 
       });
     });
