@@ -47,7 +47,7 @@ function profRatings(professors){
       response.prof.url = profPageUrl(profResult);
 
       chrome.runtime.sendMessage({url: response.prof.url, prof: response.prof}, function (response){
-        
+
         var profRatings = professorRatings(response.result);
 
         var targetLink = $(target[response.prof.targetNum]).attr('href');
@@ -56,73 +56,7 @@ function profRatings(professors){
 
         target[response.prof.targetNum].outerHTML = profDiv;
 
-
-        var nDiv = document.createElement('div');
-        nDiv.className = 'ratingList';
-        nDiv.innerHTML = '<a href="' + response.prof.url + '" target="_blank">' + profRatings.numRatings + '</a>';
-        var qDiv = document.createElement('div');
-        var gDiv = document.createElement('div');
-        var hDiv = document.createElement('div');
-        var cDiv = document.createElement('div');
-        var eDiv = document.createElement('div');
-        var qTitle = document.createElement('div');
-        var gTitle = document.createElement('div');
-        var hTitle = document.createElement('div');
-        var cTitle = document.createElement('div');
-        var eTitle = document.createElement('div');
-        var qValue = document.createElement('div');
-        var gValue = document.createElement('div');
-        var hValue = document.createElement('div');
-        var cValue = document.createElement('div');
-        var eValue = document.createElement('div');
-
-        qDiv.className = 'grade';
-        qTitle.className = 'title';
-        qValue.className = 'value';
-        gDiv.className = 'grade';
-        gTitle.className = 'title';
-        gValue.className = 'value';
-        hDiv.className = 'rating';
-        hTitle.className = 'title';
-        hValue.className = 'value';
-        cDiv.className = 'rating';
-        cTitle.className = 'title';
-        cValue.className = 'value';
-        eDiv.className = 'rating';
-        eTitle.className = 'title';
-        eValue.className = 'value';
-
-        qTitle.innerText = 'Overall Quality';
-        qValue.innerText = profRatings.quality;
-        gTitle.innerText = 'Average Grade';
-        gValue.innerText = profRatings.grade;
-        hTitle.innerText = 'Helpfulness';
-        hValue.innerText = profRatings.helpfulness;
-        cTitle.innerText = 'Clarity';
-        cValue.innerText = profRatings.clarity;
-        eTitle.innerText = 'Easiness';
-        eValue.innerText = profRatings.easiness;
-
-
-        qTitle.appendChild(qValue);
-        qDiv.appendChild(qTitle);
-        gTitle.appendChild(gValue);
-        gDiv.appendChild(gTitle);
-        hTitle.appendChild(hValue);
-        hDiv.appendChild(hTitle);
-        cTitle.appendChild(cValue);
-        cDiv.appendChild(cTitle);
-        eTitle.appendChild(eValue);
-        eDiv.appendChild(eTitle);
-
-        var popoverElement = document.createElement('div');
-        popoverElement.appendChild(qDiv);
-        popoverElement.appendChild(gDiv);
-        popoverElement.appendChild(hDiv);
-        popoverElement.appendChild(cDiv);
-        popoverElement.appendChild(eDiv);
-        popoverElement.appendChild(nDiv);
-
+        var popoverElement = makeRatingsPopover(profRatings, response.prof.url);
 
         $('#' + profRatings.profName.last + response.prof.targetNum).each(function () {
           var $elem = $(this);
@@ -135,8 +69,6 @@ function profRatings(professors){
             template: '<div class="popover size" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
           });
         });
-
-
 
       });
     });
