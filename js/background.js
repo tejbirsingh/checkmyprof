@@ -73,8 +73,7 @@ function profRatings(professors){
 
       chrome.runtime.sendMessage({url: profPage, prof: response.prof}, function (response){
 
-        var profName, numRatings, quality, grade, helpfulness, clarity, easiness,
-          pElement, nElement, qElement, gElement, hElement, cElement, eElement;
+        var profName, numRatings, quality, grade, helpfulness, clarity, easiness;
 
         var temp = document.createElement('div');
         temp.innerHTML = response.result;
@@ -85,7 +84,6 @@ function profRatings(professors){
 
         numRatings = $(temp).find('.rating-count')[0].innerText.trim();
 
-        //var info = $(temp).find('.left-breakdown');
         var overallAndAverage = $(temp).find('.left-breakdown .grade');
         var otherRatings = $(temp).find('.left-breakdown .rating');
         temp.remove();
@@ -97,19 +95,77 @@ function profRatings(professors){
         easiness = otherRatings[2].innerText;
 
         var targetLink = $(target[response.prof.targetNum]).attr('href');
-        var profDiv = '<a id="' + profLast + response.prof.targetNum + '" href="' + targetLink + '" data-toggle="popover">' +
+        var profDiv = '<a id="' + profLast + response.prof.targetNum + '" href="' + targetLink + '" target="_blank" data-toggle="popover">' +
           target[response.prof.targetNum].innerText + '</a>';
 
         target[response.prof.targetNum].outerHTML = profDiv;
 
-        qElement = 'Overall Quality: ' + quality + '\n';
-        gElement = 'Average Grade: ' + grade + '\n';
-        hElement = 'Helpfulness: ' + helpfulness + '\n';
-        cElement = 'Clarity: ' + clarity + '\n';
-        eElement = 'Easiness: ' + easiness + '\n';
+
+        var nDiv = document.createElement('div');
+        nDiv.className = 'ratingList';
+        nDiv.innerHTML = '<a href="' + response.prof.url + '" target="_blank">' + numRatings + '</a>';
+        var qDiv = document.createElement('div');
+        var gDiv = document.createElement('div');
+        var hDiv = document.createElement('div');
+        var cDiv = document.createElement('div');
+        var eDiv = document.createElement('div');
+        var qTitle = document.createElement('div');
+        var gTitle = document.createElement('div');
+        var hTitle = document.createElement('div');
+        var cTitle = document.createElement('div');
+        var eTitle = document.createElement('div');
+        var qValue = document.createElement('div');
+        var gValue = document.createElement('div');
+        var hValue = document.createElement('div');
+        var cValue = document.createElement('div');
+        var eValue = document.createElement('div');
+
+        qDiv.className = 'grade';
+        qTitle.className = 'title';
+        qValue.className = 'value';
+        gDiv.className = 'grade';
+        gTitle.className = 'title';
+        gValue.className = 'value';
+        hDiv.className = 'rating';
+        hTitle.className = 'title';
+        hValue.className = 'value';
+        cDiv.className = 'rating';
+        cTitle.className = 'title';
+        cValue.className = 'value';
+        eDiv.className = 'rating';
+        eTitle.className = 'title';
+        eValue.className = 'value';
+
+        qTitle.innerText = 'Overall Quality';
+        qValue.innerText = quality;
+        gTitle.innerText = 'Average Grade';
+        gValue.innerText = grade;
+        hTitle.innerText = 'Helpfulness';
+        hValue.innerText = helpfulness;
+        cTitle.innerText = 'Clarity';
+        cValue.innerText = clarity;
+        eTitle.innerText = 'Easiness';
+        eValue.innerText = easiness;
 
 
-        var popoverElement;
+        qTitle.appendChild(qValue);
+        qDiv.appendChild(qTitle);
+        gTitle.appendChild(gValue);
+        gDiv.appendChild(gTitle);
+        hTitle.appendChild(hValue);
+        hDiv.appendChild(hTitle);
+        cTitle.appendChild(cValue);
+        cDiv.appendChild(cTitle);
+        eTitle.appendChild(eValue);
+        eDiv.appendChild(eTitle);
+
+        var popoverElement = document.createElement('div');
+        popoverElement.appendChild(qDiv);
+        popoverElement.appendChild(gDiv);
+        popoverElement.appendChild(hDiv);
+        popoverElement.appendChild(cDiv);
+        popoverElement.appendChild(eDiv);
+        popoverElement.appendChild(nDiv);
 
 
         $('#' + profLast + response.prof.targetNum).each(function () {
@@ -119,7 +175,8 @@ function profRatings(professors){
             html: true,
             container: $elem,
             title: profName,
-            content: qElement + gElement + hElement + cElement + eElement
+            content: popoverElement,
+            template: '<div class="popover size" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
           });
         });
 
