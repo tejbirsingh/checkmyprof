@@ -73,9 +73,15 @@ function profRatings(professors){
 
         var profRatings = professorRatings(response.result);
 
-        var popoverElement = makeRatingsPopover(profRatings, response.prof.url);
+        var popoverElement
+        if (profRatings) {
+          popoverElement = makeRatingsPopover(profRatings, response.prof.url);
+        }
+        else {
+          popoverElement = popoverTextContentDiv('Professor Not Found');
+        }
 
-        $('#' + profRatings.profName.last.toLowerCase() + response.prof.targetNum).each(function () {
+        $('#' + response.prof.lastName + response.prof.targetNum).each(function () {
           var $elem = $(this);
           $elem.data('bs.popover').options.content = popoverElement;
         });

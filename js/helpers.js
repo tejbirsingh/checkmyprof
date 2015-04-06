@@ -38,6 +38,13 @@ function professorRatings(profPage) {
   var temp = document.createElement('div');
   temp.innerHTML = profPage;
 
+  // The prof's page could exist but there are no ratings
+  // I check to find his first name at the top like a regular page
+  // with ratings would have.
+  if(!($(temp).find('.pfname')[0])){
+    return false;
+  }
+
   var profFirst = $(temp).find('.pfname')[0].innerText.trim();
   var profLast = $(temp).find('.plname')[0].innerText.trim();
   var profName = {
