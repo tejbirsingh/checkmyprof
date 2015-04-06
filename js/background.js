@@ -38,40 +38,15 @@ function profRatings(professors){
     var searchUrl = ubcSearchUrl(professors[i].lastName);
 
     chrome.runtime.sendMessage({url: searchUrl, prof: professors[i]}, function (response) {
-      var temp = document.createElement('div');
-      temp.innerHTML = response.result;
-      var searchResults = $(temp).find('.PROFESSOR');
-      temp.remove();
 
-      var profResult;
-
-      for(var j = 0; j < searchResults.length; j++){
-        var name = $(searchResults[j]).find('.main')[0].innerText;
-        if(name.toLowerCase() === response.prof.name.toLowerCase()){
-          profResult = searchResults[j];
-          break;
-        }
-
-        var lastName = name.split(',')[0].toLowerCase().trim();
-        var firstName = name.split(',')[1].toLowerCase().trim();
-
-        if(lastName === response.prof.lastName){
-          if(firstName.charAt(0) === response.prof.firstName.charAt(0)){
-            profResult = searchResults[j];
-            break;
-          }
-        }
-      }
+      var profResult = getProfResultFromSearch (response.result, response.prof);
 
       if(!profResult)
         return;
 
-      var link = $(profResult).find('a').attr('href');
-      var profPage = professorUrl (link);
-      response.prof.url = profPage;
-      console.log(profPage);
+      response.prof.url = profPageUrl(profResult);
 
-      chrome.runtime.sendMessage({url: profPage, prof: response.prof}, function (response){
+      chrome.runtime.sendMessage({url: response.prof.url, prof: response.prof}, function (response){
 
         var profName, numRatings, quality, grade, helpfulness, clarity, easiness;
 
@@ -190,8 +165,4 @@ function profRatings(professors){
 function ubcSearchUrl(searchQuery) {
   return 'http://www.ratemyprofessors.com/search.jsp?queryBy=teacherName&schoolName=university+of+british+columbia+&queryoption=HEADER&query='
     + searchQuery + '&facetSearch=true';
-}
-
-function professorUrl(link){
-  return 'http://www.ratemyprofessors.com' + link;
 }

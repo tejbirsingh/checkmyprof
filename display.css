@@ -31,11 +31,11 @@
 }
 
 .title {
-    font-weight: 500;
+    font-weight: 200;
     position: relative;
     text-align: center;
 }
 
 .value {
-    font-weight: normal;
+    font-weight: 700;
 }

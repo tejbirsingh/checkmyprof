@@ -16,9 +16,10 @@
       ],
       "css": ["bootstrap.min.css", "display.css"],
       "js": [
-        "js/jquery-2.1.3.min.js",
+        "js/jquery.min.js",
         "js/bootstrap.min.js",
-        "js/background.js"
+        "js/background.js",
+        "js/helpers.js"
       ],
       "run_at": "document_idle"
     }
