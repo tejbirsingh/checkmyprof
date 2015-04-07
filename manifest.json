@@ -1,10 +1,9 @@
 {
-  "name": "Rate my UBC",
-  "short_name": "Rate my UBC",
+  "name": "Judge My Professors",
   "version": "1.0",
   "manifest_version": 2,
   "author": "Tejbir Singh Sodhan",
-  "description": "View RateMyProfessor ratings of the instructor in the UBC course selection page",
+  "description": "View RateMyProfessor ratings of the instructor in the course selection page. Works for: UBC",
   "background": {
     "scripts": ["js/eventPage.js"],
     "persistent": false
@@ -19,7 +18,7 @@
         "js/jquery.min.js",
         "js/bootstrap.min.js",
         "js/helpers.js",
-        "js/background.js"
+        "js/ubc.js"
       ],
       "run_at": "document_idle"
     }
