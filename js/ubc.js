@@ -28,7 +28,7 @@ target.forEach(function(profElement, index){
       container: $elem,
       title: prof.firstName + ' ' + prof.lastName,
       content: popoverTextContentDiv('Loading...'),
-      template: '<div class="popover size" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
+      template: '<div class="popover size inactive-link" onclick="return false" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
     });
   });
 

@@ -2,6 +2,9 @@
     width: 326px;
     max-width: 326px;
 }
+.inactive-link {
+    cursor: default;
+}
 
 .popover .popover-title {
     font-weight: 600;
