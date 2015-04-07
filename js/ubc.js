@@ -35,7 +35,7 @@ target.forEach(function(profElement, index){
   instructors.push(prof);
 })
 
-profRatings(instructors);
+bindRatingsToProfessors(instructors);
 
 //find by xpath
 function $x(path) {
@@ -49,7 +49,7 @@ function $x(path) {
   return xnodes;
 }
 
-function profRatings(professors){
+function bindRatingsToProfessors(professors){
 
   for (var i = 0; i < professors.length; i++) {
 
