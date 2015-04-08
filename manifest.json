@@ -1,9 +1,12 @@
 {
-  "name": "Judge My Professors",
+  "name": "CheckMyProf",
   "version": "1.0",
   "manifest_version": 2,
   "author": "Tejbir Singh Sodhan",
-  "description": "View RateMyProfessor ratings of the instructor in the course selection page. Works for: UBC",
+  "description": "View ratings from RateMyProfessor.com for each instructor directly on the course selection page. Hover over the professor's name in the listing to toggle a popover that displays their ratings. Currently Supported Institutions: UBC",
+  "icons": { "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png" },
   "background": {
     "scripts": ["js/eventPage.js"],
     "persistent": false
