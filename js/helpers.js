@@ -73,7 +73,7 @@ function makeRatingsPopover(profRatings, rateMyProfUrl) {
 
   var numRatingsDiv = document.createElement('div');
   numRatingsDiv.className = 'num-ratings';
-  numRatingsDiv.innerHTML = '<a href="' + rateMyProfUrl + '" target="_blank">' + profRatings.numRatings + '</a>';
+  numRatingsDiv.innerHTML = '<a href="' + rateMyProfUrl + '" onclick="window.open(\'' + rateMyProfUrl + '\', \'_blank\')">' + profRatings.numRatings + '</a>';
 
   var qDiv = individualRatingDiv('grade', 'Overall Quality', profRatings.quality);
   var gDiv = individualRatingDiv('grade', 'Average Grade', profRatings.grade);
