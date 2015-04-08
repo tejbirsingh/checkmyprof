@@ -3,7 +3,7 @@
   "version": "1.0",
   "manifest_version": 2,
   "author": "Tejbir Singh Sodhan",
-  "description": "View ratings from RateMyProfessor.com for each instructor directly on the course selection page. Hover over the professor's name in the listing to toggle a popover that displays their ratings. Currently Supported Institutions: UBC",
+  "description": "View ratings from RateMyProfessor.com for each instructor directly on the course selection page. Supported Institutions: UBC",
   "icons": { "16": "icon.png",
     "48": "icon.png",
     "128": "icon.png" },
