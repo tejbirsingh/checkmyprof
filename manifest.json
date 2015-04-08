@@ -3,7 +3,7 @@
   "version": "1.0",
   "manifest_version": 2,
   "author": "Tejbir Singh Sodhan",
-  "description": "RateMyProfessor.com ratings directly on the course selection page. UBC",
+  "description": "RateMyProfessors.com ratings directly on the course selection page. UBC",
   "icons": { "16": "icon.png",
     "48": "icon.png",
     "128": "icon.png" },
