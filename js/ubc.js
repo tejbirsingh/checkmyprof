@@ -1,4 +1,3 @@
-debugger;
 var target,
   instructors = [];
 
