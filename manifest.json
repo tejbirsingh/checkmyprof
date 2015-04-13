@@ -20,6 +20,7 @@
       "js": [
         "js/jquery.min.js",
         "js/bootstrap.min.js",
+        "js/popoverHelpers.js",
         "js/helpers.js",
         "js/ubc.js"
       ],
@@ -33,6 +34,7 @@
       "js": [
         "js/jquery.min.js",
         "js/bootstrap.min.js",
+        "js/popoverHelpers.js",
         "js/helpers.js",
         "js/opensfu.js"
       ],
