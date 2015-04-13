@@ -10,6 +10,52 @@ function $x(path) {
   return xnodes;
 }
 
+function popoverOptions($elem, prof){
+  return {
+    trigger: 'hover',
+    html: true,
+    container: $elem,
+    title: prof.firstName + ' ' + prof.lastName,
+    content: popoverTextContentDiv('Loading...'),
+    template: '<div class="popover size inactive-link" onclick="return false" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
+  };
+}
+
+function bindRatingsToProfessor (searchUrl, professor) {
+  chrome.runtime.sendMessage({url: searchUrl, prof: professor}, function (response) {
+
+    var profResult = getProfResultFromSearch(response.result, response.prof);
+
+    if (!profResult) {
+      $('#' + response.prof.lastName.charAt(0) + response.prof.targetNum).each(function () {
+        var $elem = $(this);
+        $elem.data('bs.popover').options.content = popoverTextContentDiv('Professor Not Found');
+      });
+      return;
+    }
+
+    response.prof.url = profPageUrl(profResult);
+
+    chrome.runtime.sendMessage({url: response.prof.url, prof: response.prof}, function (response) {
+
+      var profRatings = professorRatings(response.result);
+
+      var popoverContent
+      if (profRatings) {
+        popoverContent = makeRatingsPopover(profRatings, response.prof.url);
+      }
+      else {
+        popoverContent = popoverTextContentDiv('Professor Not Found');
+      }
+
+      $('#' + response.prof.lastName.charAt(0) + response.prof.targetNum).each(function () {
+        var $elem = $(this);
+        $elem.data('bs.popover').options.content = popoverContent;
+      });
+    });
+  });
+}
+
 function getProfResultFromSearch(result, prof) {
 
   var temp = document.createElement('div');

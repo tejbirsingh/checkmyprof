@@ -21,62 +21,18 @@ target.forEach(function(profElement, index){
 
   $('#' + prof.lastName.charAt(0) + prof.targetNum).each(function () {
     var $elem = $(this);
-    $elem.popover({
-      trigger: 'hover',
-      html: true,
-      container: $elem,
-      title: prof.firstName + ' ' + prof.lastName,
-      content: popoverTextContentDiv('Loading...'),
-      template: '<div class="popover size inactive-link" onclick="return false" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
-    });
+    $elem.popover(popoverOptions($elem, prof));
   });
 
   instructors.push(prof);
 })
 
-bindRatingsToProfessors(instructors);
+for (var i = 0; i < instructors.length; i++) {
 
+  var searchUrl = ubcSearchUrl(instructors[i].lastName);
 
-function bindRatingsToProfessors(professors){
+  bindRatingsToProfessor(searchUrl, instructors[i]);
 
-  for (var i = 0; i < professors.length; i++) {
-
-    var searchUrl = ubcSearchUrl(professors[i].lastName);
-
-    chrome.runtime.sendMessage({url: searchUrl, prof: professors[i]}, function (response) {
-
-      var profResult = getProfResultFromSearch (response.result, response.prof);
-
-      if(!profResult) {
-        $('#' + response.prof.lastName.charAt(0) + response.prof.targetNum).each(function () {
-          var $elem = $(this);
-          $elem.data('bs.popover').options.content = popoverTextContentDiv('Professor Not Found');
-        });
-        return;
-      }
-
-      response.prof.url = profPageUrl(profResult);
-
-      chrome.runtime.sendMessage({url: response.prof.url, prof: response.prof}, function (response){
-
-        var profRatings = professorRatings(response.result);
-
-        var popoverElement
-        if (profRatings) {
-          popoverElement = makeRatingsPopover(profRatings, response.prof.url);
-        }
-        else {
-          popoverElement = popoverTextContentDiv('Professor Not Found');
-        }
-
-        $('#' + response.prof.lastName.charAt(0) + response.prof.targetNum).each(function () {
-          var $elem = $(this);
-          $elem.data('bs.popover').options.content = popoverElement;
-        });
-
-      });
-    });
-  }
 }
 
 function ubcSearchUrl(searchQuery) {
