@@ -12,16 +12,19 @@ To install the extension, check out <https://chrome.google.com/webstore/detail/c
 
 **In Progress**
 
-- sfu
+- Kwantlen
 - opensfu.ca
 
 **Future**
 
-- Kwantlen
 - BCIT
-- UFC
+- UFV
 - UVIC
 - Langara
+- 
+**Not considering**
+
+- Regular sfu course selection (don't know how to get a content script to handle ajax changes to a webpage)
 
 ## Creator
 
