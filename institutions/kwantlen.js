@@ -49,13 +49,16 @@ function interactWithProfElement(name, profElement, index, placement){
     targetNum: index
   };
 
-  var profDiv = '<td id="' + prof.lastName.charAt(0) + prof.targetNum + '" data-toggle="popover" class="dddefault">' + profElement.innerHTML + '</td>'
+  var profDiv = '<td class="dddefault"><span id="' + prof.lastName.charAt(0) + prof.targetNum + '" data-toggle="popover" class="underline">' + profElement.innerHTML + '</span></td>'
 
   target[prof.targetNum].outerHTML = profDiv;
 
   $('#' + prof.lastName.charAt(0) + prof.targetNum).each(function () {
     var $elem = $(this);
-    $elem.popover(popoverOptions($elem, prof, placement));
+    $elem.hover(function () {$(this).removeClass('underline')});
+    $elem.popover(popoverOptions($elem, prof, placement)).on('hidden.bs.popover', function () {
+      $(this).addClass('underline');
+    });
   });
 
   instructors.push(prof);

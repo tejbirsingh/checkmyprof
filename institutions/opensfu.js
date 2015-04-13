@@ -19,13 +19,16 @@ target.forEach(function(profElement, index){
     targetNum: index
   };
 
-  var profDiv = '<td style="width:20%;"><span id="' + prof.lastName.charAt(0) + prof.targetNum + '" data-toggle="popover">' + profElement.innerText + '</span></td>'
+  var profDiv = '<td style="width:20%;"><span id="' + prof.lastName.charAt(0) + prof.targetNum + '" data-toggle="popover" class="underline">' + profElement.innerText + '</span></td>'
 
   target[prof.targetNum].outerHTML = profDiv;
 
   $('#' + prof.lastName.charAt(0) + prof.targetNum).each(function () {
     var $elem = $(this);
-    $elem.popover(popoverOptions($elem, prof));
+    $elem.hover(function () {$(this).removeClass('underline')});
+    $elem.popover(popoverOptions($elem, prof)).on('hidden.bs.popover', function () {
+      $(this).addClass('underline');
+    });;
   });
 
   instructors.push(prof);
