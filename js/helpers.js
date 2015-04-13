@@ -45,6 +45,9 @@ function bindRatingsToProfessor (searchUrl, professor) {
         var $elem = $(this);
         $elem.data('bs.popover').options.content = popoverContent;
       });
+
+      chrome.runtime.sendMessage('showPageAction');
+
     });
   });
 }
