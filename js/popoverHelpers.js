@@ -3,11 +3,15 @@
 * THE RATINGS POPOVERS
 * */
 
-function popoverOptions($elem, prof){
+function popoverOptions($elem, prof, placement){
+  if(!placement){
+    placement = 'right';
+  }
   return {
     trigger: 'hover',
     html: true,
     container: $elem,
+    placement: placement,
     title: prof.firstName + ' ' + prof.lastName,
     content: popoverTextContentDiv('Loading...'),
     template: '<div class="popover size inactive-link" onclick="return false" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'

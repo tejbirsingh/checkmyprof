@@ -39,11 +39,24 @@
         "institutions/opensfu.js"
       ],
       "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://bweb.kwantlen.ca/jade_prod/bwskfcls.P_GetCrse*",
+        "https://bweb.kwantlen.ca/pls/prodss/*"
+      ],
+      "css": ["bootstrap.min.css", "display.css"],
+      "js": [
+        "js/jquery.min.js",
+        "js/bootstrap.min.js",
+        "js/popoverHelpers.js",
+        "js/helpers.js",
+        "institutions/kwantlen.js"
+      ],
+      "run_at": "document_idle"
     }
   ],
   "permissions": [
-    "https://courses.students.ubc.ca/cs/main?pname=subjarea&tname=subjareas*",
-    "http://www.opensfu.ca/course/*",
     "http://www.ratemyprofessors.com/*"
   ]
 }
