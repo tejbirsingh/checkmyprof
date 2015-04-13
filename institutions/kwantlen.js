@@ -1,14 +1,44 @@
 var target,
   instructors = [];
 
-target = $x('/html/body/div[3]/form/table/tbody/tr/td[21]');
-target.forEach(function(profElement, index){
-  var splitName = profElement.innerText.split('(')[0];
-  splitName = splitName.split(' ');
-  if(splitName.length < 2){
-    return;
-  }
-  var name = splitName[splitName.length - 2].trim() + ', ' + splitName[0].trim();
+var url = window.location.href;
+
+if(url.indexOf('P_GetCrse') > -1){
+  target = $x('/html/body/div[3]/form/table/tbody/tr/td[21]');
+  target.forEach(function(profElement, index){
+    var splitName = profElement.innerText.split('(')[0];
+    splitName = splitName.split(' ');
+    if(splitName.length < 2){
+      return;
+    }
+    var name = splitName[splitName.length - 2].trim() + ', ' + splitName[0].trim();
+
+    interactWithProfElement(name, profElement, index, 'left');
+  })
+}
+else {
+  target = $x('/html/body/div[3]/form/table[2]/tbody/tr/td[7]');
+  target.forEach(function(profElement, index){
+    var splitName = profElement.innerText.split(' ');
+    if(splitName.length < 2){
+      return;
+    }
+    var name = splitName[1] + ', ' + splitName[0];
+
+    interactWithProfElement(name, profElement, index);
+  })
+
+}
+
+for (var i = 0; i < instructors.length; i++) {
+
+  var searchUrl = kwantlenSearchUrl(instructors[i].lastName);
+
+  bindRatingsToProfessor(searchUrl, instructors[i]);
+
+}
+
+function interactWithProfElement(name, profElement, index, placement){
 
   var lastName = name.split(',')[0].toLowerCase().trim();
   var firstName = name.split(',')[1].toLowerCase().trim();
@@ -25,18 +55,10 @@ target.forEach(function(profElement, index){
 
   $('#' + prof.lastName.charAt(0) + prof.targetNum).each(function () {
     var $elem = $(this);
-    $elem.popover(popoverOptions($elem, prof, 'left'));
+    $elem.popover(popoverOptions($elem, prof, placement));
   });
 
   instructors.push(prof);
-})
-
-for (var i = 0; i < instructors.length; i++) {
-
-  var searchUrl = kwantlenSearchUrl(instructors[i].lastName);
-
-  bindRatingsToProfessor(searchUrl, instructors[i]);
-
 }
 
 function kwantlenSearchUrl(searchQuery) {

@@ -42,7 +42,8 @@
     },
     {
       "matches": [
-        "https://bweb.kwantlen.ca/jade_prod/bwskfcls.P_GetCrse*"
+        "https://bweb.kwantlen.ca/jade_prod/bwskfcls.P_GetCrse*",
+        "https://bweb.kwantlen.ca/pls/prodss/*"
       ],
       "css": ["bootstrap.min.css", "display.css"],
       "js": [
