@@ -22,7 +22,7 @@
         "js/bootstrap.min.js",
         "js/popoverHelpers.js",
         "js/helpers.js",
-        "js/ubc.js"
+        "institutions/ubc.js"
       ],
       "run_at": "document_idle"
     },
@@ -36,7 +36,7 @@
         "js/bootstrap.min.js",
         "js/popoverHelpers.js",
         "js/helpers.js",
-        "js/opensfu.js"
+        "institutions/opensfu.js"
       ],
       "run_at": "document_idle"
     }
