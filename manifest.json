@@ -57,9 +57,6 @@
     }
   ],
   "permissions": [
-    "https://courses.students.ubc.ca/cs/main?pname=subjarea&tname=subjareas*",
-    "http://www.opensfu.ca/course/*",
-    "https://bweb.kwantlen.ca/jade_prod/bwskfcls.P_GetCrse*",
     "http://www.ratemyprofessors.com/*"
   ]
 }
