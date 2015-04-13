@@ -17,10 +17,10 @@ To install the extension, check out <https://chrome.google.com/webstore/detail/c
 
 **Future**
 
-- BCIT
 - UFV
 - UVIC
 - Langara
+- BCIT
 
 **Not considering**
 
