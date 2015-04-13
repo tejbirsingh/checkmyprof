@@ -14,12 +14,12 @@ target.forEach(function(profElement, index){
   };
 
   var targetLink = $(target[prof.targetNum]).attr('href');
-  var profDiv = '<a id="' + prof.lastName + prof.targetNum + '" href="' + targetLink + '" target="_blank" data-toggle="popover">' +
+  var profDiv = '<a id="' + prof.lastName.charAt(0) + prof.targetNum + '" href="' + targetLink + '" target="_blank" data-toggle="popover">' +
     target[prof.targetNum].innerText + '</a>';
 
   target[prof.targetNum].outerHTML = profDiv;
 
-  $('#' + prof.lastName + prof.targetNum).each(function () {
+  $('#' + prof.lastName.charAt(0) + prof.targetNum).each(function () {
     var $elem = $(this);
     $elem.popover({
       trigger: 'hover',
@@ -59,7 +59,7 @@ function bindRatingsToProfessors(professors){
       var profResult = getProfResultFromSearch (response.result, response.prof);
 
       if(!profResult) {
-        $('#' + response.prof.lastName + response.prof.targetNum).each(function () {
+        $('#' + response.prof.lastName.charAt(0) + response.prof.targetNum).each(function () {
           var $elem = $(this);
           $elem.data('bs.popover').options.content = popoverTextContentDiv('Professor Not Found');
         });
@@ -80,7 +80,7 @@ function bindRatingsToProfessors(professors){
           popoverElement = popoverTextContentDiv('Professor Not Found');
         }
 
-        $('#' + response.prof.lastName + response.prof.targetNum).each(function () {
+        $('#' + response.prof.lastName.charAt(0) + response.prof.targetNum).each(function () {
           var $elem = $(this);
           $elem.data('bs.popover').options.content = popoverElement;
         });
