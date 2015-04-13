@@ -9,15 +9,18 @@ To install the extension, check out <https://chrome.google.com/webstore/detail/c
 **Currently Supported**
 
 - UBC
+- SFU
+  - <http://opensfu.ca>
+- Kwantlen
+  - myKwantlen Search to Classes to Add
+  - Kwantlen 'CA SEY' Course Search
 
 **In Progress**
 
-- Kwantlen
-- opensfu.ca
+- UFV
 
 **Future**
 
-- UFV
 - UVIC
 - Langara
 - BCIT
