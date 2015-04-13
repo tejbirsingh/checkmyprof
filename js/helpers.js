@@ -1,3 +1,7 @@
+/*
+ * HELPER CLASS FOR INFORMATION RETRIEVAL
+ * */
+
 //find by xpath
 function $x(path) {
   var result = document.evaluate(path, document, null, XPathResult.ANY_TYPE, null);
@@ -8,6 +12,41 @@ function $x(path) {
   }
 
   return xnodes;
+}
+
+function bindRatingsToProfessor (searchUrl, professor) {
+  chrome.runtime.sendMessage({url: searchUrl, prof: professor}, function (response) {
+
+    var profResult = getProfResultFromSearch(response.result, response.prof);
+
+    if (!profResult) {
+      $('#' + response.prof.lastName.charAt(0) + response.prof.targetNum).each(function () {
+        var $elem = $(this);
+        $elem.data('bs.popover').options.content = popoverTextContentDiv('Professor Not Found');
+      });
+      return;
+    }
+
+    response.prof.url = profPageUrl(profResult);
+
+    chrome.runtime.sendMessage({url: response.prof.url, prof: response.prof}, function (response) {
+
+      var profRatings = professorRatings(response.result);
+
+      var popoverContent
+      if (profRatings) {
+        popoverContent = makeRatingsPopover(profRatings, response.prof.url);
+      }
+      else {
+        popoverContent = popoverTextContentDiv('Professor Not Found');
+      }
+
+      $('#' + response.prof.lastName.charAt(0) + response.prof.targetNum).each(function () {
+        var $elem = $(this);
+        $elem.data('bs.popover').options.content = popoverContent;
+      });
+    });
+  });
 }
 
 function getProfResultFromSearch(result, prof) {
@@ -79,55 +118,4 @@ function professorRatings(profPage) {
     easiness: otherRatings[2].innerText,
     numRatings: numRatings
   };
-}
-
-function makeRatingsPopover(profRatings, rateMyProfUrl) {
-
-  var numRatingsDiv = document.createElement('div');
-  numRatingsDiv.className = 'num-ratings';
-  numRatingsDiv.innerHTML = '<a href="' + rateMyProfUrl + '" onclick="window.open(\'' + rateMyProfUrl + '\', \'_blank\')">' + profRatings.numRatings + '</a>';
-
-  var qDiv = individualRatingDiv('grade', 'Overall Quality', profRatings.quality);
-  var gDiv = individualRatingDiv('grade', 'Average Grade', profRatings.grade);
-  var hDiv = individualRatingDiv('rating', 'Helpfulness', profRatings.helpfulness);
-  var cDiv = individualRatingDiv('rating', 'Clarity', profRatings.clarity);
-  var eDiv = individualRatingDiv('rating', 'Easiness', profRatings.easiness);
-
-
-  var popoverElement = document.createElement('div');
-  popoverElement.appendChild(qDiv);
-  popoverElement.appendChild(gDiv);
-  popoverElement.appendChild(hDiv);
-  popoverElement.appendChild(cDiv);
-  popoverElement.appendChild(eDiv);
-  popoverElement.appendChild(numRatingsDiv);
-
-  return popoverElement;
-}
-
-function individualRatingDiv(mainClass, title, value){
-
-  var parentDiv = document.createElement('div');
-  var titleDiv = document.createElement('div');
-  var valueDiv = document.createElement('div');
-
-  parentDiv.className = mainClass;
-  titleDiv.className = 'title';
-  valueDiv.className = 'value';
-
-  titleDiv.innerText = title;
-  valueDiv.innerText = value;
-
-  titleDiv.appendChild(valueDiv);
-  parentDiv.appendChild(titleDiv);
-
-  return parentDiv;
-}
-
-function popoverTextContentDiv(text){
-  var div = document.createElement('div');
-  div.className = 'popover-plain-text';
-  div.innerText = text;
-
-  return div;
 }

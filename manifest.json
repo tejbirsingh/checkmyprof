@@ -20,14 +20,30 @@
       "js": [
         "js/jquery.min.js",
         "js/bootstrap.min.js",
+        "js/popoverHelpers.js",
         "js/helpers.js",
         "js/ubc.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "http://www.opensfu.ca/course/*"
+      ],
+      "css": ["bootstrap.min.css", "display.css"],
+      "js": [
+        "js/jquery.min.js",
+        "js/bootstrap.min.js",
+        "js/popoverHelpers.js",
+        "js/helpers.js",
+        "js/opensfu.js"
       ],
       "run_at": "document_idle"
     }
   ],
   "permissions": [
     "https://courses.students.ubc.ca/cs/main?pname=subjarea&tname=subjareas*",
+    "http://www.opensfu.ca/course/*",
     "http://www.ratemyprofessors.com/*"
   ]
 }

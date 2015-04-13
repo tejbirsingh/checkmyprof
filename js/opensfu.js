@@ -1,9 +1,15 @@
 var target,
   instructors = [];
 
-target = $x('/html/body/div[2]/div[4]/table[3]/tbody/tr/td[2]/a');
+target = $x('/html/body/div[2]/div[4]/div/div/div[2]/table/tbody/tr/td[2]');
+
 target.forEach(function(profElement, index){
-  var name = profElement.innerText;
+  var splitName = profElement.innerText.split(' ');
+  if(splitName.length < 2){
+    return;
+  }
+  var name = splitName[1] + ', ' + splitName[0];
+
   var lastName = name.split(',')[0].toLowerCase().trim();
   var firstName = name.split(',')[1].toLowerCase().trim();
   var prof = {
@@ -13,9 +19,7 @@ target.forEach(function(profElement, index){
     targetNum: index
   };
 
-  var targetLink = $(target[prof.targetNum]).attr('href');
-  var profDiv = '<a id="' + prof.lastName.charAt(0) + prof.targetNum + '" href="' + targetLink + '" target="_blank" data-toggle="popover">' +
-    target[prof.targetNum].innerText + '</a>';
+  var profDiv = '<td style="width:20%;"><span id="' + prof.lastName.charAt(0) + prof.targetNum + '" data-toggle="popover">' + profElement.innerText + '</span></td>'
 
   target[prof.targetNum].outerHTML = profDiv;
 
@@ -29,13 +33,13 @@ target.forEach(function(profElement, index){
 
 for (var i = 0; i < instructors.length; i++) {
 
-  var searchUrl = ubcSearchUrl(instructors[i].lastName);
+  var searchUrl = sfuSearchUrl(instructors[i].lastName);
 
   bindRatingsToProfessor(searchUrl, instructors[i]);
 
 }
 
-function ubcSearchUrl(searchQuery) {
-  return 'http://www.ratemyprofessors.com/search.jsp?queryBy=teacherName&schoolName=university+of+british+columbia+&queryoption=HEADER&query='
+function sfuSearchUrl(searchQuery) {
+  return 'http://www.ratemyprofessors.com/search.jsp?queryBy=teacherName&schoolName=simon+fraser+university+&queryoption=HEADER&query='
     + searchQuery + '&facetSearch=true';
 }
