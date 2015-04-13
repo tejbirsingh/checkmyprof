@@ -1,3 +1,15 @@
+//find by xpath
+function $x(path) {
+  var result = document.evaluate(path, document, null, XPathResult.ANY_TYPE, null);
+  var xnodes = [];
+  var xres;
+  while(xres = result.iterateNext()){
+    xnodes.push(xres);
+  }
+
+  return xnodes;
+}
+
 function getProfResultFromSearch(result, prof) {
 
   var temp = document.createElement('div');

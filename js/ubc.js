@@ -36,17 +36,6 @@ target.forEach(function(profElement, index){
 
 bindRatingsToProfessors(instructors);
 
-//find by xpath
-function $x(path) {
-  var result = document.evaluate(path, document, null, XPathResult.ANY_TYPE, null);
-  var xnodes = [];
-  var xres;
-  while(xres = result.iterateNext()){
-    xnodes.push(xres);
-  }
-
-  return xnodes;
-}
 
 function bindRatingsToProfessors(professors){
 
