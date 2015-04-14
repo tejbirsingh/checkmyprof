@@ -19,7 +19,7 @@ target.forEach(function(profElement, index){
     targetNum: index
   };
 
-  var profDiv = '<td style="width:20%;"><span id="' + prof.lastName.charAt(0) + prof.targetNum + '" data-toggle="popover" class="underline">' + profElement.innerText + '</span></td>'
+  var profDiv = '<td style="width:20%;"><span id="' + prof.lastName.charAt(0) + prof.targetNum + '" data-toggle="popover" class="tool-tip underline">' + profElement.innerText + '</span></td>'
 
   target[prof.targetNum].outerHTML = profDiv;
 

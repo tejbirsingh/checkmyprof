@@ -2,6 +2,11 @@
     width: 326px;
     max-width: 326px;
 }
+
+.tool-tip {
+    cursor: pointer;
+}
+
 .inactive-link {
     cursor: default;
 }

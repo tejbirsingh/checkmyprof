@@ -49,7 +49,7 @@ function interactWithProfElement(name, profElement, index, placement){
     targetNum: index
   };
 
-  var profDiv = '<td class="dddefault"><span id="' + prof.lastName.charAt(0) + prof.targetNum + '" data-toggle="popover" class="underline">' + profElement.innerHTML + '</span></td>'
+  var profDiv = '<td class="dddefault"><span id="' + prof.lastName.charAt(0) + prof.targetNum + '" data-toggle="popover" class="tool-tip underline">' + profElement.innerHTML + '</span></td>'
 
   target[prof.targetNum].outerHTML = profDiv;
 
