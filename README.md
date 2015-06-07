@@ -14,9 +14,6 @@ To install the extension, check out <https://chrome.google.com/webstore/detail/c
 - Kwantlen
   - myKwantlen Search to Classes to Add
   - Kwantlen 'CA SEY' Course Search
-
-**Not Published**
-
 - UFV
 
 **Future**
