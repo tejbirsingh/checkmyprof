@@ -1,7 +1,7 @@
 var target,
   instructors = [];
 
-target = $x('/html/body/div[2]/div[4]/div/div/div[2]/table/tbody/tr/td[2]');
+target = $x('//*[@id="sections"]/div/div[2]/div/div[2]/div/div[2]/table/tbody/tr/td[3]');
 
 target.forEach(function(profElement, index){
   var splitName = profElement.innerText.split(' ');
