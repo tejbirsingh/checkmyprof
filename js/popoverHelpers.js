@@ -24,19 +24,15 @@ function makeRatingsPopover(profRatings, rateMyProfUrl) {
   numRatingsDiv.className = 'num-ratings';
   numRatingsDiv.innerHTML = '<a href="' + rateMyProfUrl + '" onclick="window.open(\'' + rateMyProfUrl + '\', \'_blank\')">' + profRatings.numRatings + '</a>';
 
-  var qDiv = individualRatingDiv('grade', 'Overall Quality', profRatings.quality);
-  var gDiv = individualRatingDiv('grade', 'Average Grade', profRatings.grade);
-  var hDiv = individualRatingDiv('rating', 'Helpfulness', profRatings.helpfulness);
-  var cDiv = individualRatingDiv('rating', 'Clarity', profRatings.clarity);
-  var eDiv = individualRatingDiv('rating', 'Easiness', profRatings.easiness);
+  var qDiv = individualRatingDiv('overall-quality', 'Overall Quality', profRatings.quality);
+  var wDiv = individualRatingDiv('grade', 'Would Take Again', profRatings.wouldTakeAgain);
+  var lDiv = individualRatingDiv('grade', 'Level of Difficulty', profRatings.difficulty);
 
 
   var popoverElement = document.createElement('div');
   popoverElement.appendChild(qDiv);
-  popoverElement.appendChild(gDiv);
-  popoverElement.appendChild(hDiv);
-  popoverElement.appendChild(cDiv);
-  popoverElement.appendChild(eDiv);
+  popoverElement.appendChild(wDiv);
+  popoverElement.appendChild(lDiv);
   popoverElement.appendChild(numRatingsDiv);
 
   return popoverElement;

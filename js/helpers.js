@@ -108,17 +108,14 @@ function professorRatings(profPage) {
 
   var numRatings = $(temp).find('.rating-count')[0].innerText.trim();
 
-  var overallAndAverage = $(temp).find('.left-breakdown .grade');
-  var otherRatings = $(temp).find('.left-breakdown .rating');
+  var ratings = $(temp).find('.left-breakdown .grade');
   temp.remove();
 
   return {
     profName: profName,
-    quality: overallAndAverage[0].innerText,
-    grade: overallAndAverage[1].innerText,
-    helpfulness: otherRatings[0].innerText,
-    clarity: otherRatings[1].innerText,
-    easiness: otherRatings[2].innerText,
+    quality: ratings[0].innerText,
+    wouldTakeAgain: ratings[1].innerText.trim(),
+    difficulty: ratings[2].innerText.trim(),
     numRatings: numRatings
   };
 }

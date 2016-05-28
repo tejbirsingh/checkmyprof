@@ -33,21 +33,21 @@
     padding-bottom: 5%;
 }
 
+.overall-quality{
+    width: 100%;
+    float: left;
+    overflow: hidden;
+}
+
 .grade {
+    padding-top: 2%;
     width: 50%;
     float: left;
     overflow: hidden;
 }
 
-.rating {
-    padding-top: 2%;
-    width: 33.3%;
-    float: left;
-    overflow: hidden;
-}
-
 .title {
-    font-weight: 200;
+    font-weight: 300;
     position: relative;
     text-align: center;
 }
